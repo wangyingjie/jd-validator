@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
  * @version: 1.0
  * @createdate: 2017-12-01 19:06
  */
-public class Guy {
+public class Guy extends People {
 
     @Min(value = 10)
     private int id;

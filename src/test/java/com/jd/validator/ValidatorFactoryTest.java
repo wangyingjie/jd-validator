@@ -35,6 +35,12 @@ public class ValidatorFactoryTest {
 
         Set<ConstraintViolation<Guy>> constraintViolations = validator.validate(guy);
 
+        constraintViolations.stream().forEach(System.out::println);
+        constraintViolations.stream().forEach(constraints-> {
+
+            System.out.println(constraints.getPropertyPath() + "==============" + constraints.getMessage());
+        });
+
         assertEquals(2, constraintViolations.size());
     }
 
@@ -58,11 +64,11 @@ public class ValidatorFactoryTest {
     @Test
     public void testGenericBootstrap() {
         GenericBootstrap provider = Validation.byDefaultProvider();
-        Assert.assertNotNull( provider );
+        Assert.assertNotNull(provider);
 
         Configuration<?> config = provider.configure();
-        Assert.assertNotNull( config );
-        Assert.assertTrue( config instanceof HibernateValidatorConfiguration);
+        Assert.assertNotNull(config);
+        Assert.assertTrue(config instanceof HibernateValidatorConfiguration);
 
         HibernateValidatorConfiguration hibernateConfig = (HibernateValidatorConfiguration) config;
 
@@ -72,30 +78,27 @@ public class ValidatorFactoryTest {
         Validator validator = factory.getValidator();
 
         ValidatorImpl hibernateValidatorImpl = (ValidatorImpl) validator;
-        BeanMetaDataManager bmdm = findPropertyOfType( hibernateValidatorImpl, BeanMetaDataManager.class );
-        MethodValidationConfiguration methodConfig = findPropertyOfType( bmdm, MethodValidationConfiguration.class );
+        BeanMetaDataManager bmdm = findPropertyOfType(hibernateValidatorImpl, BeanMetaDataManager.class);
+        MethodValidationConfiguration methodConfig = findPropertyOfType(bmdm, MethodValidationConfiguration.class);
 
-        Assert.assertTrue( methodConfig.isAllowParallelMethodsDefineParameterConstraints() );
+        Assert.assertTrue(methodConfig.isAllowParallelMethodsDefineParameterConstraints());
     }
 
     @IgnoreForbiddenApisErrors(reason = "Prints the stacktrace in case an exception is raised")
     private <T extends Object> T findPropertyOfType(Object subject, Class<T> clazz) {
         Field[] fields = subject.getClass().getDeclaredFields();
-        for ( Field field : fields ) {
-            if ( field.getType().equals( clazz ) ) {
+        for (Field field : fields) {
+            if (field.getType().equals(clazz)) {
                 boolean accessible = field.isAccessible();
                 try {
-                    field.setAccessible( true );
-                    return (T) field.get( subject );
-                }
-                catch (IllegalArgumentException e) {
+                    field.setAccessible(true);
+                    return (T) field.get(subject);
+                } catch (IllegalArgumentException e) {
                     e.printStackTrace();
-                }
-                catch (IllegalAccessException e) {
+                } catch (IllegalAccessException e) {
                     e.printStackTrace();
-                }
-                finally {
-                    field.setAccessible( accessible );
+                } finally {
+                    field.setAccessible(accessible);
                 }
             }
         }
