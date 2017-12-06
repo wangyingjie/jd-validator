@@ -1,12 +1,12 @@
 package com.jd.validator.bean;
 
 import com.jd.validator.service.ValidatorService;
-import com.jd.validator.service.ValidatorServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.jmeter.config.Arguments;
 import org.apache.jmeter.protocol.java.sampler.AbstractJavaSamplerClient;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * @author: wangyingjie1
@@ -16,17 +16,21 @@ import org.apache.jmeter.samplers.SampleResult;
 @Slf4j
 public class ValidatorGuyJmeterTest extends AbstractJavaSamplerClient {
 
+    private static ClassPathXmlApplicationContext appContext =
+            new ClassPathXmlApplicationContext("classpath:/spring-config.xml");
+
+    private static ValidatorService validatorService =
+            appContext.getBean("validatorService", ValidatorService.class);
+
     @Override
     public SampleResult runTest(JavaSamplerContext context) {
         SampleResult sr = new SampleResult();
         sr.sampleStart();
         try {
 
-            ValidatorService service = new ValidatorServiceImpl();
-
             Guy guy = getGuy();
 
-            boolean validate = service.validate(guy);
+            boolean validate = validatorService.validate(guy);
 
             if (validate) {
                 sr.setSuccessful(true);
