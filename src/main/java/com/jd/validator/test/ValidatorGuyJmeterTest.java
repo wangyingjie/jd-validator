@@ -1,11 +1,13 @@
-package com.jd.validator.bean;
+package com.jd.validator.test;
 
+import com.jd.validator.bean.Guy;
 import com.jd.validator.service.ValidatorService;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.jmeter.config.Arguments;
 import org.apache.jmeter.protocol.java.sampler.AbstractJavaSamplerClient;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -13,8 +15,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @version: 1.0
  * @createdate: 2017-12-05 16:45
  */
-@Slf4j
 public class ValidatorGuyJmeterTest extends AbstractJavaSamplerClient {
+
+    private static final Logger log = LoggerFactory.getLogger(ValidatorGuyJmeterTest.class);
 
     private static ClassPathXmlApplicationContext appContext =
             new ClassPathXmlApplicationContext("classpath:/spring-config.xml");
@@ -61,10 +64,12 @@ public class ValidatorGuyJmeterTest extends AbstractJavaSamplerClient {
        return guy;
     }
 
+    @Override
     public void teardownTest(JavaSamplerContext context) {
 
     }
 
+    @Override
     public Arguments getDefaultParameters() {
         Arguments arg = new Arguments();
         //arg.setThreadContext();

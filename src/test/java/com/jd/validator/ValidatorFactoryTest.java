@@ -10,7 +10,6 @@ import org.hibernate.validator.internal.metadata.BeanMetaDataManager;
 import org.junit.Assert;
 import org.junit.Test;
 
-import javax.annotation.Resource;
 import javax.validation.*;
 import javax.validation.bootstrap.GenericBootstrap;
 import java.lang.reflect.Field;
@@ -24,13 +23,6 @@ import static org.junit.Assert.assertEquals;
  * @createdate: 2017-12-01 19:07
  */
 public class ValidatorFactoryTest {
-
-    @Resource
-    private ValidatorFactory validatorFactory;
-
-    @Resource
-    private Validator validator;
-
 
     @Test
     public void testValidate() {

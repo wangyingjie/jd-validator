@@ -1,7 +1,5 @@
 package com.jd.validator.bean;
 
-import lombok.Data;
-
 import javax.validation.constraints.*;
 
 /**
@@ -9,7 +7,7 @@ import javax.validation.constraints.*;
  * @version: 1.0
  * @createdate: 2017-12-01 19:06
  */
-@Data
+//@Data
 public class Guy extends People {
 
     // 最大的整数部分长度  最大小数部分输入长度
@@ -38,5 +36,43 @@ public class Guy extends People {
         this.lastName = lastName;
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public long getHeight() {
+        return height;
+    }
+
+    public void setHeight(long height) {
+        this.height = height;
+    }
+
+    public long getWeight() {
+        return weight;
+    }
+
+    public void setWeight(long weight) {
+        this.weight = weight;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getIdentityCard() {
+        return identityCard;
+    }
+
+    public void setIdentityCard(String identityCard) {
+        this.identityCard = identityCard;
+    }
 }
