@@ -28,6 +28,8 @@ public class Guy extends People {
     @Size(min = 16, max = 20)
     private String identityCard;
 
+    private Guy guy;
+
     public Guy() {
     }
 
